@@ -14,8 +14,8 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     margin: 10vmin;
-    
-};
+
+}
 
 .column2 {
     display: flex;
