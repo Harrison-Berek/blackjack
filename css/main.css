@@ -1,0 +1,34 @@
+* { 
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vmin;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: rgb(61,113,38);
+}
+
+.column1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 10vmin; 
+    item
+};
+
+.column2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10vmin; 
+}
+
+.column3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10vmin; 
+}
+
