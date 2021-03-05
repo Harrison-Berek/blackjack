@@ -4,10 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="css/main.css" href="css/cards.css">
+    <script defer src="js/main.js"></script>
 </head>
 <body>
-    
+    <container class="column1">
+        <button id="double-down">Double Down</button>
+        <br>
+        <button id="hit">Hit</button>
+        <br>
+        <button id="stay">Stay</button>
+    </container> 
+    <container class="column2">
+        <div class="dealer-cards">
+            <div id="dc1">dc1</div>
+            <div id="dc2">dc2</div>
+        </div>
+        <button id="replay">Replay</button>
+        <div class="player-cards">
+            <div id="pc1">pc1</div>
+            <div id="pc2">pc2</div>
+        </div>
+    </container>
+    <container  class="column3">
+        <div id="deck">deck</div>
+        <br><br><br><br><br><br><br><br><br><br>
+        <div id="bet-box">bet</div>
+        <div id="chip-count">chip counter</div>
+        <div id="chips">chips</div>
+    </container>
 </body>
 </html>
