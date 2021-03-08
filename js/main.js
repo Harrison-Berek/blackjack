@@ -27,6 +27,8 @@ function init() {
     chips = 1000;
     turn = 1; 
     deck = shuffledDeck();
+    playerCrads = [];
+    dealerCards = [];
     winner = null; 
     render();
 };
@@ -45,11 +47,6 @@ function buildMasterDeck () {
 };
 
 
-init();
-console.log(masterDeck);
-
-
-
 function shuffledDeck() { 
     const tempDeck = [...masterDeck];
     shuffledDeck = [];
@@ -59,8 +56,8 @@ function shuffledDeck() {
     }
     return shuffledDeck
 }; 
+init();
 console.log(deck);
-
 
 // function dealCard() {
 //     if (turn === 1 )
