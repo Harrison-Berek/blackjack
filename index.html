@@ -10,24 +10,28 @@
     <script defer src="js/main.js"></script>
 </head>
 <body>
-    <container class="column1">
-        <button id="double-down">Double Down</button>
-        <br>
-        <button id="hit">Hit</button>
-        <br>
-        <button id="stand">Stay</button>
-    </container> 
-    <container class="column2">
-        <div class="card" class="back-blue" class="card-container"></div>
-        <button id="replay">Replay</button>
-        <div class="player-cards">PCs</div>
-    </container>
-    <container  class="column3">
-        <div>deck</div>
-        <br><br><br><br><br><br><br><br><br><br>
-        <div id="bet-box">bet</div>
-        <div id="chip-count">chip counter</div>
-        <div id="chips">chips</div> 
+    <h1>BlackJack</h1>
+    <h3 id="msg">Hello</h3>
+    <container>
+        <div class="column1">
+            <button id="double-down">Double Down</button>
+            <br>
+            <button id="hit">Hit</button>
+            <br>
+            <button id="stand">Stand</button>
+        </div> 
+        <div class="column2">
+            <div class="dealer-cards">DCs</div>
+            <button id="replay">Replay</button>
+            <div class="player-cards">PCs</div>
+        </div>
+        <div class="column3">
+            <div class="deck" class="card" class="back-blue"></div>
+            <br><br>
+            <button id="betBtn">Place Your Bet</button>
+            <div id="chip-count">chip counter</div>
+            <div id="chips">chips</div>
+        </div> 
     </container>
 </body>
 </html>
