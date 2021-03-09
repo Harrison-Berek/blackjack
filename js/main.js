@@ -19,7 +19,7 @@ document.querySelector('#hit').addEventListener('click', handleHit);
 document.querySelector('#stand').addEventListener('click', handleStand);
 document.querySelector('#double-down').addEventListener('click', handleDouble);
 document.querySelector('#replay').addEventListener('click', init);
-document.querySelector("#betBtn").addEventListener('click', placeBet);
+// document.querySelector("#betBtn").addEventListener('click', placeBet);
 // document.querySelector('#split').addEventListener('click', handleSplit);
 
 
@@ -75,18 +75,16 @@ console.log(bet);
 function initDeal() {
     playerCards.push(deck[0], deck[1]);
     dealerCards.push(deck[0]);
-    // if (playerCards[0].value + playerCards[1].value === 21)
-    if (true) {
+    if (playerCards[0].value + playerCards[1].value === 21){
+    // if (true) {
         dealerCards.push(deck[0])
-        // if (playerCards[0].value + playerCards[1].value === 21 && dealerCards[0].value
-        //     + dealerCards[1].value !== 21) {
-        if (false) {
+        if (playerCards[0].value + playerCards[1].value === 21 && dealerCards[0].value
+            + dealerCards[1].value !== 21) {
+        // if (false) {
             msgEl.innerHTML = `BlackJack! You win and extra 50% of your bet!!`;
             playerChips = playerChips + bet * 1.5;
-            } else if (true)
-            // (playerCards[0].value + playerCards[1].value === 21 && dealerCards[0].value
-            //     + dealerCards[1].value === 21)
-                 {
+            } else if (playerCards[0].value + playerCards[1].value === 21 && dealerCards[0].value
+                + dealerCards[1].value === 21){
                 msgEl.innerHTML = `Push. You didn't win...but you didn't lose`;
             } 
     } 
