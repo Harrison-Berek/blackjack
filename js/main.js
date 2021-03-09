@@ -8,28 +8,37 @@ const ranks = ['02', '03', '04', '05', '06', '07', '08',
 
 
 /*----- app's state (variables) -----*/
-let playerChips, winner, playerCards, dealerCards, turn, bet; 
+let pChips, winner, pCards, dCards, turn, bet, pCardsTotal, dCardsTotal; 
+
+
+
 
 /*----- cached element references -----*/
 const msgEl = document.getElementById('msg');
- 
+const betBtn = document.getElementById('betBtn');
+const replayBtn = document.getElementById('replay');
+const pcsEls = document.getElementById('pcs');
+const dcsEls = document.getElementById('dcs');
+//  chipCountEl 
 /*----- event listeners -----*/
 
 document.querySelector('#hit').addEventListener('click', handleHit);
 document.querySelector('#stand').addEventListener('click', handleStand);
 document.querySelector('#double-down').addEventListener('click', handleDouble);
 document.querySelector('#replay').addEventListener('click', init);
-// document.querySelector("#betBtn").addEventListener('click', placeBet);
+document.querySelector("#betBtn").addEventListener('click', placeBet);
 // document.querySelector('#split').addEventListener('click', handleSplit);
 
 
 /*----- functions -----*/
 function init() {
-    playerChips = 100;
+    pChips = 100;
     turn = 1; 
     deck = shuffledDeck();
-    playerCards = [];
-    dealerCards = [];
+    pCards = [];
+    dCards = [];
+    betBtn.style.visibility = 'visible';
+    replayBtn.style.visibility = 'hidden';
     bet = 0;
     winner = null; 
     render();
@@ -48,6 +57,38 @@ function buildMasterDeck () {
     return deck;
 };
 
+function pNewCard () {
+    if (pCards === []) {
+        return;
+    } else {
+        total = 0;
+        pCards.forEach(function(card, cardIdx) {
+        total += pCards[cardIdx].value;
+        let pNC = document.createElement(`div`);
+        pNC.className = `card ${card.face}`;
+        pcsEls.appendChild(pNC);
+        });
+    }
+    pCardsTotal = total;
+    return pCardsTotal
+};
+
+function dNewCard () {
+    if (pCards === []) {
+        return
+    } else {
+        total = 0;
+        dCards.forEach(function(card, cardIdx) {
+        total += dCards[cardIdx].value;
+        let dNC = document.createElement(`div`);
+        dNC.className = `card ${card.face}`;
+        dcsEls.appendChild(dNC);
+        });
+    }
+    dCardsTotal = total;
+    return dCardsTotal
+};
+
 
 function shuffledDeck() { 
     const tempDeck = [...masterDeck];
@@ -62,46 +103,45 @@ init();
 console.log(deck);
 
 function placeBet() {
-   bet = prompt(`Your chip total is ${playerChips}. Please place your bet:`)
-   while (bet > playerChips) {
-    bet = prompt(`Sorry, you only have ${playerChips} to bet. Please place your bet:`) 
+    bet = prompt(`Your chip total is ${pChips}. Please place your bet:`)
+   while (bet > pChips) {
+    bet = prompt(`Sorry, you only have ${pChips} to bet. Please place your bet:`) 
    } 
    initDeal();
+   betBtn.style.visibility = 'hidden';
    return bet; 
 };
 
 console.log(bet);
 
 function initDeal() {
-    playerCards.push(deck[0], deck[1]);
-    dealerCards.push(deck[0]);
-    if (playerCards[0].value + playerCards[1].value === 21){
+    pCards.push(deck[0], deck[1]);
+    dCards.push(deck[0]);
+    pNewCard();
+    dNewCard();
+    if (pCardsTotal === 21){
     // if (true) {
-        dealerCards.push(deck[0])
-        if (playerCards[0].value + playerCards[1].value === 21 && dealerCards[0].value
-            + dealerCards[1].value !== 21) {
+        dCards.push(deck[0])
+        dNewCard();
+        if (pCardsTotal === 21 && dCardsTotal !== 21) {
         // if (false) {
             msgEl.innerHTML = `BlackJack! You win and extra 50% of your bet!!`;
-            playerChips = playerChips + bet * 1.5;
-            } else if (playerCards[0].value + playerCards[1].value === 21 && dealerCards[0].value
-                + dealerCards[1].value === 21){
+            pChips = pChips + bet * 1.5;
+            } else if (pCardsTotal === 21 && dCardsTotal === 21){
                 msgEl.innerHTML = `Push. You didn't win...but you didn't lose`;
             } 
     } 
-    // else {
-    //     msgEl.innerHTML = `You have ${playerCards[0].value + playerCards[1].value} would you like to Hit, Stand or  Double-Down`;
-    // }
+    else {
+        msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit, Stand or  Double-Down`;
+    }
 };
 
 
 
-let pcTotal = playerCards.forEach(function(card) {
-    total = 0;
-    total += playerCards[card].value;
-})
+
 
 function handleHit() {
-//     playerCards.push(deck[0]);
+//     pCards.push(deck[0]);
 //     if 
 };
 
@@ -115,6 +155,7 @@ function handleDouble() {
 
 function getWinner() {
 
+    replayBtn.style.visibility = 'visible';
 };
 
 function render() {
@@ -125,6 +166,6 @@ function render() {
         } 
         // else if ()     
     //display correct buttons 
-    //update bet and playerChips
+    //update bet and pChips
     //deal cards
 };
