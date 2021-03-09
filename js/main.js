@@ -28,7 +28,7 @@ function init() {
     playerChips = 100;
     turn = 1; 
     deck = shuffledDeck();
-    playerCrads = [];
+    playerCards = [];
     dealerCards = [];
     bet = 0;
     winner = null; 
@@ -62,12 +62,10 @@ init();
 console.log(deck);
 
 function placeBet() {
-   let minBet = 50; 
-   bet = prompt(`Your chip total is ${playerChips}. Minimum bet is ${minBet}. Please place your bet:`)
-   while (bet > 1000 - playerChips || bet < 50) {
-    bet = prompt(`Sorry, bet must be between ${1000 - playerChips} and ${minBet}. Please place your bet:`)
+   bet = prompt(`Your chip total is ${playerChips}. Please place your bet:`)
+   while (bet > playerChips) {
+    bet = prompt(`Sorry, you only have ${playerChips} to bet. Please place your bet:`) 
    } 
-   playerChips -= bet;
    initDeal();
    return bet; 
 };
@@ -75,28 +73,38 @@ function placeBet() {
 console.log(bet);
 
 function initDeal() {
-    playerCards = [deck.pop(), deck.pop()];
-    dealerCards = [deck.pop()];
-    if (playerCards[0].value + playerCards[1].value === 21 && dealerCards[0].value
-        + dealerCards[1].value !== 21) {
-        msgEl.innerHTML = `Congratulations you've got BLACKJACK!`
-        // playerChips = 
-    } else if (playerCards[0].value + playerCards[1].value === 21 && dealerCards[0].value
-        + dealerCards[1].value === 21) {
-        msgEl.innerHTML = `Push! You didn't win but you didn't lose`;
-    } else {
-        msgEl.innerHTML = `You have ${playerCards[0].value + playerCards[1].value} would you like to Hit, Stand or  Double-Down`;
-    }
+    playerCards.push(deck[0], deck[1]);
+    dealerCards.push(deck[0]);
+    // if (playerCards[0].value + playerCards[1].value === 21)
+    if (true) {
+        dealerCards.push(deck[0])
+        // if (playerCards[0].value + playerCards[1].value === 21 && dealerCards[0].value
+        //     + dealerCards[1].value !== 21) {
+        if (false) {
+            msgEl.innerHTML = `BlackJack! You win and extra 50% of your bet!!`;
+            playerChips = playerChips + bet * 1.5;
+            } else if (true)
+            // (playerCards[0].value + playerCards[1].value === 21 && dealerCards[0].value
+            //     + dealerCards[1].value === 21)
+                 {
+                msgEl.innerHTML = `Push. You didn't win...but you didn't lose`;
+            } 
+    } 
+    // else {
+    //     msgEl.innerHTML = `You have ${playerCards[0].value + playerCards[1].value} would you like to Hit, Stand or  Double-Down`;
+    // }
 };
 
 
 
-// function dealCard() {
-//     if (turn === 1 )
-// };
+let pcTotal = playerCards.forEach(function(card) {
+    total = 0;
+    total += playerCards[card].value;
+})
 
 function handleHit() {
-    console.log('hit');
+//     playerCards.push(deck[0]);
+//     if 
 };
 
 function handleStand() {
@@ -115,7 +123,7 @@ function render() {
     //Show correct message
         // if bet 0 "Welcome to BlackJack! Please place your bet."
         if (bet === 0){
-            msgEl.innerHTML = `Please place your bet to get starter.`
+            msgEl.innerHTML = `Please place your bet to get started.`
         } 
         // else if ()     
     //display correct buttons 
