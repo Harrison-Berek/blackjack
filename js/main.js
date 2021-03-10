@@ -2,13 +2,10 @@
 const suits = ['s', 'c', 'd', 'h'];
 const ranks = ['02', '03', '04', '05', '06', '07', '08',
  '09', '10', 'J', 'Q', 'K', 'A'];
-
- const masterDeck = buildMasterDeck();
-
-
+const masterDeck = buildMasterDeck();
 
 /*----- app's state (variables) -----*/
-let pChips, pCards, dCards, bet, pCardsTotal, dCardsTotal, hitCount; 
+let pChips, pCards, dCards, bet, pCardsTotal, dCardsTotal; 
 
 
 /*----- cached element references -----*/
@@ -36,10 +33,12 @@ document.querySelector("#walk-away").addEventListener('click', walkAway);
 
 
 /*----- functions -----*/
-//Initialize the Game
 function init() {
     pChips = 1000;
+    chipCountEl.innerHTML = `Your chips: $${pChips}`;
     bet = 0; 
+    rendershuffledDeck();
+    deck = shuffledDeck;
     renderNewHand();
 };
 
@@ -56,7 +55,7 @@ function buildMasterDeck () {
     return deck;
 };
 
-function shuffledDeck() { 
+function rendershuffledDeck() { 
     const tempDeck = [...masterDeck];
     shuffledDeck = [];
     while (tempDeck.length) {
@@ -65,8 +64,7 @@ function shuffledDeck() {
     }
     return shuffledDeck
 }; 
-
-//Deal Cards 
+ 
 function pNewCard () {
     pCards.push(deck.pop())
     pCardsTotal += pCards[pCards.length - 1].value;
@@ -85,9 +83,6 @@ function dNewCard () {
     return dCardsTotal
 };
 
-
-
-
 function placeBet() {
     bet = prompt(`Your chip total is ${pChips}. Please place your bet:`)
    while (bet > pChips) {
@@ -99,7 +94,6 @@ function placeBet() {
    initDeal();
    return bet; 
 };
-
 
 function initDeal() {
     pNewCard();
@@ -118,7 +112,7 @@ function initDeal() {
         getWinner();
     } 
     else {
-        if ((pChips < bet * 2)) {
+        if (pChips < bet * 2) {
             msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit or Stand`;
             ddBtn.style.visibility = 'hidden';
         } else {
@@ -138,8 +132,9 @@ function handleDouble() {
     pChips -= bet;
     chipCountEl.innerHTML = `Your Chips: $${pChips}`;
     bet *= 2;
-    if (pCardsTotal > 21) {setTimeout(getWinner, 4000)};
-    else {
+    if (pCardsTotal > 21) {
+        setTimeout(getWinner, 4000)
+    } else {
         msgEl.innerHTML = `Doublin' Down! Your bet is now ${bet}. 
         You're showing ${pCardsTotal}, Good Luck!`
         hitBtn.style.visibility = 'hidden';
@@ -225,8 +220,6 @@ function walkAway () {
 
 
 function renderNewHand() {
-    buildMasterDeck();
-    deck = shuffledDeck();
     pCards = [];
     dCards = [];
     pCardsTotal = 0;
