@@ -112,7 +112,7 @@ function initDeal() {
         getWinner();
     } 
     else {
-        if (pChips < bet * 2) {
+        if (pChips < bet) {
             msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit or Stand`;
             ddBtn.style.visibility = 'hidden';
         } else {
