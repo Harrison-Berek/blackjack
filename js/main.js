@@ -8,9 +8,7 @@ const ranks = ['02', '03', '04', '05', '06', '07', '08',
 
 
 /*----- app's state (variables) -----*/
-let pChips, winner, pCards, dCards, turn, bet, pCardsTotal, dCardsTotal, hitCount; 
-
-
+let pChips, pCards, dCards, bet, pCardsTotal, dCardsTotal, hitCount; 
 
 
 /*----- cached element references -----*/
@@ -19,38 +17,30 @@ const ddBtn = document.getElementById('double-down')
 const hitBtn = document.getElementById('hit')
 const standBtn = document.getElementById('stand')
 const betBtn = document.getElementById('betBtn');
+const dealAgainBtn = document.getElementById('deal-again');
+const walkAwayBtn = document.getElementById('walk-away');
 const replayBtn = document.getElementById('replay');
 const pcsEls = document.getElementById('pcs');
 const dcsEls = document.getElementById('dcs');
-//  chipCountEl 
-/*----- event listeners -----*/
+const chipCountEl = document.getElementById('chip-count');
 
+/*----- event listeners -----*/
 document.querySelector('#hit').addEventListener('click', handleHit);
 document.querySelector('#stand').addEventListener('click', handleStand);
 document.querySelector('#double-down').addEventListener('click', handleDouble);
 document.querySelector('#replay').addEventListener('click', init);
 document.querySelector("#betBtn").addEventListener('click', placeBet);
+document.querySelector("#deal-again").addEventListener('click', renderNewHand);
+document.querySelector("#walk-away").addEventListener('click', walkAway);
 // document.querySelector('#split').addEventListener('click', handleSplit);
 
 
 /*----- functions -----*/
+//Initialize the Game
 function init() {
-    msgEl.innerHTML = `Please place your bet to get started.`
     pChips = 1000;
-    turn = 1; 
-    deck = shuffledDeck();
-    pCards = [];
-    dCards = [];
-    pCardsTotal = 0;
-    dCardsTotal = 0;
-    hitBtn.style.visibility = 'hidden';
-    standBtn.style.visibility = 'hidden';
-    ddBtn.style.visibility = 'hidden';
-    betBtn.style.visibility = 'visible';
-    replayBtn.style.visibility = 'hidden';
-    bet = 0;
-    winner = null; 
-    render();
+    bet = 0; 
+    renderNewHand();
 };
 
 function buildMasterDeck () {
@@ -66,6 +56,17 @@ function buildMasterDeck () {
     return deck;
 };
 
+function shuffledDeck() { 
+    const tempDeck = [...masterDeck];
+    shuffledDeck = [];
+    while (tempDeck.length) {
+        const rndIdx = Math.floor(Math.random() * tempDeck.length);
+        shuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
+    }
+    return shuffledDeck
+}; 
+
+//Deal Cards 
 function pNewCard () {
     pCards.push(deck.pop())
     pCardsTotal += pCards[pCards.length - 1].value;
@@ -85,58 +86,69 @@ function dNewCard () {
 };
 
 
-function shuffledDeck() { 
-    const tempDeck = [...masterDeck];
-    shuffledDeck = [];
-    while (tempDeck.length) {
-        const rndIdx = Math.floor(Math.random() * tempDeck.length);
-        shuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
-    }
-    return shuffledDeck
-}; 
-init();
-console.log(deck);
+
 
 function placeBet() {
     bet = prompt(`Your chip total is ${pChips}. Please place your bet:`)
    while (bet > pChips) {
     bet = prompt(`Sorry, you only have ${pChips} to bet. Please place your bet:`) 
    } 
-   initDeal();
+   pChips -= bet;
+   chipCountEl.innerHTML = `Your Chips: $${pChips}`;
    betBtn.style.visibility = 'hidden';
+   initDeal();
    return bet; 
 };
-
 
 
 function initDeal() {
     pNewCard();
     pNewCard();
     dNewCard();
+    if (pCardsTotal === 22) {pCardsTotal -= 10};
     if (pCardsTotal === 21){
-    // if (true) {
         dCards.push(deck.pop());
         dNewCard();
         if (pCardsTotal === 21 && dCardsTotal !== 21) {
-        // if (false) {
             msgEl.innerHTML = `BlackJack! You win and extra 50% of your bet!!`;
-            // winner= 1;
+            bet *= 0.75;
         } else if (pCardsTotal === 21 && dCardsTotal === 21){
             msgEl.innerHTML = `Push. You didn't win...but you didn't lose`;
-            // winner = 0;
         } 
-        // getWinner();
+        getWinner();
     } 
     else {
-    msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit, Stand or Double-Down`;   
-    hitBtn.style.visibility = 'visible';
-    standBtn.style.visibility = 'visible';
-    ddBtn.style.visibility = 'visible';
+        if ((pChips < bet * 2)) {
+            msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit or Stand`;
+            ddBtn.style.visibility = 'hidden';
+        } else {
+            msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit, Stand or Double-Down`;   
+            ddBtn.style.visibility = 'visible';
+        };
+        hitBtn.style.visibility = 'visible';
+        standBtn.style.visibility = 'visible';
     };
 };
 
 
-
+function handleDouble() { 
+    pNewCard();
+    if(pCardsTotal > 21 && pCards.some(card => card.face.includes('A'))) 
+        {pCardsTotal -= 10;};
+    pChips -= bet;
+    chipCountEl.innerHTML = `Your Chips: $${pChips}`;
+    bet *= 2;
+    if (pCardsTotal > 21) {setTimeout(getWinner, 4000)};
+    else {
+        msgEl.innerHTML = `Doublin' Down! Your bet is now ${bet}. 
+        You're showing ${pCardsTotal}, Good Luck!`
+        hitBtn.style.visibility = 'hidden';
+        standBtn.style.visibility = 'hidden';
+        ddBtn.style.visibility = 'hidden';
+        setTimeout(dealersTurn, 5000);
+    };
+    return bet
+};
 
 
 function handleHit() {
@@ -145,12 +157,10 @@ function handleHit() {
     if(pCardsTotal > 21){
         if(pCards.some(card => card.face.includes('A'))) {
             pCardsTotal -= 10;
-            render();
             return pCardsTotal
         }
         msgEl.innerHTML = `Bust!`
-        // winner = -1;
-        // getWinner();
+        getWinner();
     } else if (pCardsTotal === 21) {
         hitBtn.style.visibility = 'hidden';
         msgEl.innerHTML = `Noice, you have ${pCardsTotal}! Lets Stand and see what the dealers got.`;
@@ -166,32 +176,71 @@ function handleStand() {
     dealersTurn();
 };
 
-function handleDouble() { 
 
+function dealersTurn () {
+    dNewCard();
+    while (dCardsTotal < 18) {
+        dNewCard();
+        if (dCardsTotal > 21 && dCards.some(card => card.face.includes('A'))) {
+            dCardsTotal -= 10;
+        };
+    };
+    getWinner();
+    return dCardsTotal; 
 };
-
-// function dealersTurn () {
-//     dNewCard();
-//     while (dCardsTotal < 18) {
-//         dNewCard();
-//         if (dCardsTotal > 21 && dCards.some(card => card.face.includes('A'))) {
-//             dCardsTotal -= 10;
-//         } 
-//         return dCardsTotal;
-//     } 
-//     // getwinner(); 
-// }
 
 function getWinner() {
-    // pChips = pChips + bet * 1.5;
-    replayBtn.style.visibility = 'visible';
+    if (pCardsTotal > 21) {
+        msgEl.innerHTML = `Bust, you lost $${bet}.`;
+    } else if (dCardsTotal > 21) {
+        pChips += bet * 2;
+        msgEl.innerHTML = `The dealer bust, you won $${bet * 2}!`
+    } else if (pCardsTotal > dCardsTotal) {
+        pChips += bet * 2;
+        msgEl.innerHTML = `Bam! Your ${pCardsTotal} beats the dealr's ${dCardsTotal}. You've won $${bet * 2}!`;
+    } else if (pCardsTotal === dCardsTotal) {
+        pChips += bet;
+        msgEl.innerHTML = `Welp, its a tie.`;
+    } else {
+        msgEl.innerHTML = `Bummer, the dealers ${dCardsTotal} beat your ${pCardsTotal}.`;
+    };
+    chipCountEl.innerHTML = `Your chips: $${pChips}`
+    if (pChips === 0) {
+        msgEl.innerHTML = `You're out of chips, would you like to buy back in?`
+        hitBtn.style.visibility = 'hidden';
+        standBtn.style.visibility = 'hidden';
+        ddBtn.style.visibility = 'hidden';
+        betBtn.style.visibility = 'hidden';
+        replayBtn.style.visibility = 'visible';
+    } else {
+        dealAgainBtn.style.visibility = 'visible';
+        walkAwayBtn.style.visibility = 'visible';
+    } 
 };
 
-function render() {
-    //Show correct message
-        // if bet 0 "Welcome to BlackJack! Please place your bet."
-        // else if ()     
-    //display correct buttons 
-    //update bet and pChips
-    //deal cards
+function walkAway () {
+    renderNewHand();
+    msgEl.innerHTML = `Thanks for playing! Dont spend your $${pChips} all in one place.`
 };
+
+
+function renderNewHand() {
+    buildMasterDeck();
+    deck = shuffledDeck();
+    pCards = [];
+    dCards = [];
+    pCardsTotal = 0;
+    dCardsTotal = 0;
+    msgEl.innerHTML = `Please place your bet to get started.`
+    pcsEls.innerHTML = '';
+    dcsEls.innerHTML = '';
+    hitBtn.style.visibility = 'hidden';
+    standBtn.style.visibility = 'hidden';
+    ddBtn.style.visibility = 'hidden';
+    betBtn.style.visibility = 'visible';
+    dealAgainBtn.style.visibility = 'hidden';
+    walkAwayBtn.style.visibility = 'hidden';
+    replayBtn.style.visibility = 'hidden';
+};
+
+init();
