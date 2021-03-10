@@ -8,13 +8,16 @@ const ranks = ['02', '03', '04', '05', '06', '07', '08',
 
 
 /*----- app's state (variables) -----*/
-let pChips, winner, pCards, dCards, turn, bet, pCardsTotal, dCardsTotal; 
+let pChips, winner, pCards, dCards, turn, bet, pCardsTotal, dCardsTotal, hitCount; 
 
 
 
 
 /*----- cached element references -----*/
 const msgEl = document.getElementById('msg');
+const ddBtn = document.getElementById('double-down')
+const hitBtn = document.getElementById('hit')
+const standBtn = document.getElementById('stand')
 const betBtn = document.getElementById('betBtn');
 const replayBtn = document.getElementById('replay');
 const pcsEls = document.getElementById('pcs');
@@ -32,11 +35,17 @@ document.querySelector("#betBtn").addEventListener('click', placeBet);
 
 /*----- functions -----*/
 function init() {
-    pChips = 100;
+    msgEl.innerHTML = `Please place your bet to get started.`
+    pChips = 1000;
     turn = 1; 
     deck = shuffledDeck();
     pCards = [];
     dCards = [];
+    pCardsTotal = 0;
+    dCardsTotal = 0;
+    hitBtn.style.visibility = 'hidden';
+    standBtn.style.visibility = 'hidden';
+    ddBtn.style.visibility = 'hidden';
     betBtn.style.visibility = 'visible';
     replayBtn.style.visibility = 'hidden';
     bet = 0;
@@ -58,34 +67,20 @@ function buildMasterDeck () {
 };
 
 function pNewCard () {
-    if (pCards === []) {
-        return;
-    } else {
-        total = 0;
-        pCards.forEach(function(card, cardIdx) {
-        total += pCards[cardIdx].value;
-        let pNC = document.createElement(`div`);
-        pNC.className = `card ${card.face}`;
-        pcsEls.appendChild(pNC);
-        });
-    }
-    pCardsTotal = total;
+    pCards.push(deck.pop())
+    pCardsTotal += pCards[pCards.length - 1].value;
+    let pNC = document.createElement(`div`);
+    pNC.className = `card ${pCards[pCards.length - 1].face}`;
+    pcsEls.appendChild(pNC);
     return pCardsTotal
 };
 
 function dNewCard () {
-    if (pCards === []) {
-        return
-    } else {
-        total = 0;
-        dCards.forEach(function(card, cardIdx) {
-        total += dCards[cardIdx].value;
-        let dNC = document.createElement(`div`);
-        dNC.className = `card ${card.face}`;
-        dcsEls.appendChild(dNC);
-        });
-    }
-    dCardsTotal = total;
+    dCards.push(deck.pop());
+    dCardsTotal += dCards[dCards.length - 1].value;
+    let dNC = document.createElement(`div`);
+    dNC.className = `card ${dCards[dCards.length - 1].face}`;
+    dcsEls.appendChild(dNC);
     return dCardsTotal
 };
 
@@ -112,28 +107,32 @@ function placeBet() {
    return bet; 
 };
 
-console.log(bet);
+
 
 function initDeal() {
-    pCards.push(deck[0], deck[1]);
-    dCards.push(deck[0]);
+    pNewCard();
     pNewCard();
     dNewCard();
     if (pCardsTotal === 21){
     // if (true) {
-        dCards.push(deck[0])
+        dCards.push(deck.pop());
         dNewCard();
         if (pCardsTotal === 21 && dCardsTotal !== 21) {
         // if (false) {
             msgEl.innerHTML = `BlackJack! You win and extra 50% of your bet!!`;
-            pChips = pChips + bet * 1.5;
-            } else if (pCardsTotal === 21 && dCardsTotal === 21){
-                msgEl.innerHTML = `Push. You didn't win...but you didn't lose`;
-            } 
+            // winner= 1;
+        } else if (pCardsTotal === 21 && dCardsTotal === 21){
+            msgEl.innerHTML = `Push. You didn't win...but you didn't lose`;
+            // winner = 0;
+        } 
+        // getWinner();
     } 
     else {
-        msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit, Stand or  Double-Down`;
-    }
+    msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit, Stand or Double-Down`;   
+    hitBtn.style.visibility = 'visible';
+    standBtn.style.visibility = 'visible';
+    ddBtn.style.visibility = 'visible';
+    };
 };
 
 
@@ -141,29 +140,56 @@ function initDeal() {
 
 
 function handleHit() {
-//     pCards.push(deck[0]);
-//     if 
+    ddBtn.style.visibility = 'hidden';
+    pNewCard();
+    if(pCardsTotal > 21){
+        if(pCards.some(card => card.face.includes('A'))) {
+            pCardsTotal -= 10;
+            render();
+            return pCardsTotal
+        }
+        msgEl.innerHTML = `Bust!`
+        // winner = -1;
+        // getWinner();
+    } else if (pCardsTotal === 21) {
+        hitBtn.style.visibility = 'hidden';
+        msgEl.innerHTML = `Noice, you have ${pCardsTotal}! Lets Stand and see what the dealers got.`;
+    } else {
+        msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit or Stand`;
+    }
 };
 
 function handleStand() {
-
+    hitBtn.style.visibility = 'hidden';
+    standBtn.style.visibility = 'hidden';
+    ddBtn.style.visibility = 'hidden';
+    dealersTurn();
 };
 
 function handleDouble() { 
 
 };
 
-function getWinner() {
+// function dealersTurn () {
+//     dNewCard();
+//     while (dCardsTotal < 18) {
+//         dNewCard();
+//         if (dCardsTotal > 21 && dCards.some(card => card.face.includes('A'))) {
+//             dCardsTotal -= 10;
+//         } 
+//         return dCardsTotal;
+//     } 
+//     // getwinner(); 
+// }
 
+function getWinner() {
+    // pChips = pChips + bet * 1.5;
     replayBtn.style.visibility = 'visible';
 };
 
 function render() {
     //Show correct message
         // if bet 0 "Welcome to BlackJack! Please place your bet."
-        if (bet === 0){
-            msgEl.innerHTML = `Please place your bet to get started.`
-        } 
         // else if ()     
     //display correct buttons 
     //update bet and pChips
