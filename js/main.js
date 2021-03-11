@@ -22,7 +22,7 @@ const chipCountEl = document.getElementById('chip-count');
 
 /*----- event listeners -----*/
 document.querySelector('#hit').addEventListener('click', handleHit);
-document.querySelector('#stand').addEventListener('click', handleStand);
+document.querySelector('#stand').addEventListener('click', dealersTurn);
 document.querySelector('#double-down').addEventListener('click', handleDouble);
 document.querySelector('#replay').addEventListener('click', init);
 document.querySelector("#betBtn").addEventListener('click', placeBet);
@@ -36,8 +36,6 @@ function init() {
     pChips = 1000;
     chipCountEl.innerHTML = `Your chips: $${pChips}`;
     bet = 0;
-    rendershuffledDeck();
-    deck = shuffledDeck;
     renderNewHand();
 };
 
@@ -83,10 +81,11 @@ function dNewCard() {
 };
 
 function aceToOne() {
-    if (pCardsTotal > 21 && pCards.some(card => card.face.includes('A'))) {
-        pCardsTotal -= 10;
+    if (pCardsTotal > 21 && pCards.some(card => card.value === 11)) {
+        let a11 = pCards.find(card => card.value === 11);
+        a11.value = 1;
+        return pCardsTotal;
     }
-    return pCardsTotal;
 };
 
 function placeBet() {
@@ -155,16 +154,9 @@ function handleHit() {
     };
 };
 
-function handleStand() {
-    hitBtn.style.visibility = 'hidden';
-    standBtn.style.visibility = 'hidden';
-    ddBtn.style.visibility = 'hidden';
-    dealersTurn();
-};
 
 
 function dealersTurn() {
-    dNewCard();
     while (dCardsTotal < 18) {
         dNewCard();
         aceToOne();
@@ -174,6 +166,9 @@ function dealersTurn() {
 };
 
 function getWinner() {
+    hitBtn.style.visibility = 'hidden';
+    standBtn.style.visibility = 'hidden';
+    ddBtn.style.visibility = 'hidden';
     if (pCardsTotal > 21) {
         msgEl.innerHTML = `You've bust with ${pCardsTotal}, you lost $${bet}.`;
     } else if (dCardsTotal > 21) {
@@ -183,14 +178,14 @@ function getWinner() {
         pChips += bet * 2;
         msgEl.innerHTML = `Bam! Your ${pCardsTotal} beats the dealr's ${dCardsTotal}. You've won $${bet * 2}!`;
     } else if (pCardsTotal === dCardsTotal) {
-        pChips += bet;
+        pChips = pChips + bet;
         msgEl.innerHTML = `Welp, its a tie. You win nothing but lose nothing.`;
     } else {
         msgEl.innerHTML = `Bummer, the dealers ${dCardsTotal} beat your ${pCardsTotal}. You lose ${bet}`;
     };
     chipCountEl.innerHTML = `Your chips: $${pChips}`
     if (pChips === 0) {
-        msgEl.innerHTML = `You're out of chips, would you like to buy back in?`
+        msgEl.innerHTML = `Bummer, you lost and you're out of chips, would you like to buy back in?`
         hitBtn.style.visibility = 'hidden';
         standBtn.style.visibility = 'hidden';
         ddBtn.style.visibility = 'hidden';
@@ -204,6 +199,14 @@ function getWinner() {
 
 
 function renderNewHand() {
+    buildMasterDeck();
+    rendershuffledDeck();
+    deck = shuffledDeck;
+    deck.forEach(function(card) {
+        if (card.value === 1){
+            card.value = 11; 
+        }
+    });
     pCards = [];
     dCards = [];
     pCardsTotal = 0;

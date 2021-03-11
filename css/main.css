@@ -50,13 +50,35 @@ container {
     margin: 7vmin; 
 }
 
-img {
-    height: 20vmin;
-}
+button { 
+    margin: 15px;
+    background-color: goldenrod;
+    color: white;
+    /* padding: 1vmin; */
+    transition-duration: 0.2s;
+    cursor: pointer;
+  }
+  
+  button:hover {
+      background-color: darkred;
+  }
+
+  #chip-count { 
+      display: flex;
+      background-color: whitesmoke;
+      border-radius: 50%;
+      border: dashed 2vmin darkred;
+      width: 20vmin;
+      height: 20vmin;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: darkred;
+  }
+  
 
 #pcs { 
-    display: flex;
-    align-content: center;
+    width: 250px;
 }
 
 .pcs1 { 
@@ -69,11 +91,12 @@ img {
     top: 2px;
     transform: rotate(5deg);
 }
+
 .pcs3 { 
-    position: relative;
+    position: relative; 
     left: -56px; 
-    top: 5px;
-    transform: rotate(10deg);
+    top: 5px; 
+    transform: rotate(10deg); 
 }
 
 .pcs4 { 
@@ -97,7 +120,7 @@ img {
     transform: rotate(25deg); 
 }
 
-#dcs { 
+/* #dcs { 
     display: flex;
     align-content: center;
 }
@@ -139,12 +162,12 @@ img {
     left: -252px;
     top: 14px;
     transform: rotate(25deg); 
-}
+} */
 
 
 #deal-again { 
     position: relative;
-    top: 25px;
+    top: 35px;
 }
 
 
