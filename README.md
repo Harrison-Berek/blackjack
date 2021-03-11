@@ -1,4 +1,4 @@
-<!-- BLACKJACK
+BLACKJACK
 
 Background/Rules:
 
@@ -27,7 +27,7 @@ Icebox Items:
     - Animate cards being dealt
     - Beautify, AKA keep updateing CSS to make it more astetically pleasing 
 
- -->
+
 
 <!--  
 Pseudocode:
