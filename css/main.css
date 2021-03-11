@@ -29,31 +29,28 @@ container {
 .column1 {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    / */
+    justify-content: flex-start;
 
 }
 
 .column2 {
     display: grid;
     grid-auto-rows: 1fr 1fr;
-    /* margin: 7vmin; 
-    width: 40vmin; */
 }
 
 .column3 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-end;
-    /  */
+    align-items: center;
 }
 
 button { 
-    margin: 15px;
+    margin: 1vmin;
     background-color: goldenrod;
     color: white;
-    /* padding: 1vmin; */
+    padding: 1vmin;
+    width: 25vmin;
     transition-duration: 0.2s;
     cursor: pointer;
   }
@@ -67,8 +64,8 @@ button {
       background-color: whitesmoke;
       border-radius: 50%;
       border: dashed 2vmin darkred;
-      width: 15vmin;
-      height: 15vmin;
+      width: 20vmin;
+      height: 20vmin;
       align-items: center;
       justify-content: center;
       text-align: center;

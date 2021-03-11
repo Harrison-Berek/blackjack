@@ -68,7 +68,13 @@ function pNewCard() {
     let pNC = document.createElement(`div`);
     pNC.className = `card ${pCards[pCards.length - 1].face} pcs${pCards.length}`;
     pcsEls.appendChild(pNC);
-    return pCardsTotal
+    if (pCardsTotal > 21 && pCards.some(card => card.value === 11)) {
+        let a11 = pCards.find(card => card.value === 11);
+        a11.value = 1;
+        pCardsTotal = 0;
+        pCards.forEach(card => pCardsTotal += card.value);
+        return pCardsTotal
+    }
 };
 
 function dNewCard() {
@@ -77,16 +83,28 @@ function dNewCard() {
     let dNC = document.createElement(`div`);
     dNC.className = `card ${dCards[dCards.length - 1].face} dcs${dCards.length}`;
     dcsEls.appendChild(dNC);
-    return dCardsTotal
-};
-
-function aceToOne() {
-    if (pCardsTotal > 21 && pCards.some(card => card.value === 11)) {
-        let a11 = pCards.find(card => card.value === 11);
+    if (dCardsTotal > 21 && dCards.some(card => card.value === 11)) {
+        let a11 = dCards.find(card => card.value === 11);
         a11.value = 1;
-        return pCardsTotal;
+        dCardsTotal = 0;
+        dCards.forEach(card => dCardsTotal += card.value);
+        return dCardsTotal
     }
 };
+
+// function pAceToOne() {
+    
+//         return pCardsTotal;
+//     }
+// };
+
+// function dAceToOne() {
+//     if (dCardsTotal > 21 && dCards.some(card => card.value === 11)) {
+//         let a11 = dCards.find(card => card.value === 11);
+//         a11.value = 1;
+//         return dCardsTotal;
+//     }
+// };
 
 function placeBet() {
     bet = prompt(`Your chip total is ${pChips}. Please place your bet:`)
@@ -129,7 +147,7 @@ function handleDouble() {
     pChips -= bet;
     bet *= 2;
     pNewCard();
-    aceToOne();
+    // aceToOne();
     if (pCardsTotal <=21) {
         dealersTurn();
     } else { 
@@ -143,7 +161,7 @@ function handleDouble() {
 function handleHit() {
     ddBtn.style.visibility = 'hidden';
     pNewCard();
-    aceToOne();
+    // aceToOne();
     if (pCardsTotal === 21) {
         hitBtn.style.visibility = 'hidden';
         msgEl.innerHTML = `Noice, you have ${pCardsTotal}! Lets Stand and see what the dealers got.`;
@@ -159,7 +177,7 @@ function handleHit() {
 function dealersTurn() {
     while (dCardsTotal < 18) {
         dNewCard();
-        aceToOne();
+        // aceToOne();
     };
     getWinner();
     return dCardsTotal;
