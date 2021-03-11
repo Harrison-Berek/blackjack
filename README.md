@@ -1,6 +1,36 @@
-# blackjack
+<!-- BLACKJACK
+
+Background/Rules:
+
+    If you are new to Blackjack this is a great resorce for rules and basic stratigey: https://www.blackjackapprenticeship.com/how-to-play-blackjack/
+
+    NOTE: "split" is not an option yet but will be coming soon
+
+Screenshots/WireFrame:
+
+    <blockquote class="imgur-embed-pub" lang="en" data-id="a/0RBLlKy"  ><a href="//imgur.com/a/0RBLlKy">Blackjack</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+
+Technologies Used:
+
+    HTML, CSS, JavaScript
+
+Getting Started: 
+
+    Play game here: https://harrison-berek.github.io/blackjack/
+
+    Get started by placing your first bet. Follow the prompts to win as much "money" as you can. Leave anytime throught the walk away button. Enjoy and Good Luck!
+
+
+Icebox Items: 
+
+    - Add "SPLIT" option when dealt a pair on the opeing deal
+    - Animate cards being dealt
+    - Beautify, AKA keep updateing CSS to make it more astetically pleasing 
+
+ -->
 
 <!--  
+Pseudocode:
  1. Define constants 
      1.1. Create card values
      1.2. Card suits
