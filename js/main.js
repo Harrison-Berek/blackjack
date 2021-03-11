@@ -181,7 +181,7 @@ function getWinner() {
         pChips += bet * 1;
         msgEl.innerHTML = `Welp, its a tie. You win nothing but lose nothing.`;
     } else {
-        msgEl.innerHTML = `Bummer, the dealers ${dCardsTotal} beat your ${pCardsTotal}. You lose ${bet}`;
+        msgEl.innerHTML = `Bummer, the dealers ${dCardsTotal} beat your ${pCardsTotal}. You lose $${bet}`;
     };
     chipCountEl.innerHTML = `Your chips: $${pChips}`
     if (pChips === 0) {
