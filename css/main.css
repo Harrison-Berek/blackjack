@@ -54,5 +54,99 @@ img {
     height: 20vmin;
 }
 
+#pcs { 
+    display: flex;
+    align-content: center;
+}
+
+.pcs1 { 
+    position: absolute;
+}
+
+.pcs2 { 
+    position: relative;
+    left: 9px; 
+    top: 2px;
+    transform: rotate(5deg);
+}
+.pcs3 { 
+    position: relative;
+    left: -56px; 
+    top: 5px;
+    transform: rotate(10deg);
+}
+
+.pcs4 { 
+    position: relative;
+    left: -121px; 
+    top: 8px;
+    transform: rotate(15deg);
+}
+
+.pcs5 { 
+    position: relative;
+    left: -187px; 
+    top: 11px;
+    transform: rotate(20deg);
+}
+
+.pcs6 { 
+    position: relative;
+    left: -252px;
+    top: 14px;
+    transform: rotate(25deg); 
+}
+
+#dcs { 
+    display: flex;
+    align-content: center;
+}
+
+.dcs1 { 
+    position: absolute;
+    margin: 1px;
+}
+
+.dcs2 { 
+    position: relative;
+    left: 9px; 
+    top: 2px;
+    transform: rotate(5deg);
+}
+.dcs3 { 
+    position: relative;
+    left: -56px; 
+    top: 5px;
+    transform: rotate(10deg);
+}
+
+.dcs4 { 
+    position: relative;
+    left: -121px; 
+    top: 8px;
+    transform: rotate(15deg);
+}
+
+.dcs5 { 
+    position: relative;
+    left: -187px; 
+    top: 11px;
+    transform: rotate(20deg);
+}
+
+.dcs6 { 
+    position: relative;
+    left: -252px;
+    top: 14px;
+    transform: rotate(25deg); 
+}
+
+
+#deal-again { 
+    position: relative;
+    top: 25px;
+}
+
+
 
 

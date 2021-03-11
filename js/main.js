@@ -1,11 +1,10 @@
-/*----- constants -----*/ 
+/*----- constants -----*/
 const suits = ['s', 'c', 'd', 'h'];
-const ranks = ['02', '03', '04', '05', '06', '07', '08',
- '09', '10', 'J', 'Q', 'K', 'A'];
+const ranks = ['02', '03', '04', '05', '06', '07', '08','09', '10', 'J', 'Q', 'K', 'A'];
 const masterDeck = buildMasterDeck();
 
 /*----- app's state (variables) -----*/
-let pChips, pCards, dCards, bet, pCardsTotal, dCardsTotal; 
+let pChips, pCards, dCards, bet, pCardsTotal, dCardsTotal;
 
 
 /*----- cached element references -----*/
@@ -36,26 +35,26 @@ document.querySelector("#walk-away").addEventListener('click', walkAway);
 function init() {
     pChips = 1000;
     chipCountEl.innerHTML = `Your chips: $${pChips}`;
-    bet = 0; 
+    bet = 0;
     rendershuffledDeck();
     deck = shuffledDeck;
     renderNewHand();
 };
 
-function buildMasterDeck () {
-    const deck = []; 
-    suits.forEach(function(suit) {
-        ranks.forEach(function(rank) {
+function buildMasterDeck() {
+    const deck = [];
+    suits.forEach(function (suit) {
+        ranks.forEach(function (rank) {
             deck.push({
                 face: `${suit}${rank}`,
-                value: Number(rank) || (rank === 'A' ? 11:10)
+                value: Number(rank) || (rank === 'A' ? 11 : 10)
             });
         });
     });
     return deck;
 };
 
-function rendershuffledDeck() { 
+function rendershuffledDeck() {
     const tempDeck = [...masterDeck];
     shuffledDeck = [];
     while (tempDeck.length) {
@@ -63,105 +62,97 @@ function rendershuffledDeck() {
         shuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
     }
     return shuffledDeck
-}; 
- 
-function pNewCard () {
+};
+
+function pNewCard() {
     pCards.push(deck.pop())
     pCardsTotal += pCards[pCards.length - 1].value;
     let pNC = document.createElement(`div`);
-    pNC.className = `card ${pCards[pCards.length - 1].face}`;
+    pNC.className = `card ${pCards[pCards.length - 1].face} pcs${pCards.length}`;
     pcsEls.appendChild(pNC);
     return pCardsTotal
 };
 
-function dNewCard () {
+function dNewCard() {
     dCards.push(deck.pop());
     dCardsTotal += dCards[dCards.length - 1].value;
     let dNC = document.createElement(`div`);
-    dNC.className = `card ${dCards[dCards.length - 1].face}`;
+    dNC.className = `card ${dCards[dCards.length - 1].face} dcs${dCards.length}`;
     dcsEls.appendChild(dNC);
     return dCardsTotal
 };
 
+function aceToOne() {
+    if (pCardsTotal > 21 && pCards.some(card => card.face.includes('A'))) {
+        pCardsTotal -= 10;
+    }
+    return pCardsTotal;
+};
+
 function placeBet() {
     bet = prompt(`Your chip total is ${pChips}. Please place your bet:`)
-   while (bet > pChips) {
-    bet = prompt(`Sorry, you only have ${pChips} to bet. Please place your bet:`) 
-   } 
-   pChips -= bet;
-   chipCountEl.innerHTML = `Your Chips: $${pChips}`;
-   betBtn.style.visibility = 'hidden';
-   initDeal();
-   return bet; 
+    while (bet > pChips) {
+        bet = prompt(`Sorry, you only have ${pChips} to bet. Please place your bet:`)
+    }
+    pChips -= bet;
+    chipCountEl.innerHTML = `Your Chips: $${pChips}`;
+    betBtn.style.visibility = 'hidden';
+    initDeal();
+    return bet;
 };
 
 function initDeal() {
     pNewCard();
     pNewCard();
     dNewCard();
-    if (pCardsTotal === 22) {pCardsTotal -= 10};
-    if (pCardsTotal === 21){
-        dCards.push(deck.pop());
+    if (pCardsTotal === 22) { pCardsTotal -= 10 };
+    if (pCardsTotal === 21) {
         dNewCard();
         if (pCardsTotal === 21 && dCardsTotal !== 21) {
-            msgEl.innerHTML = `BlackJack! You win and extra 50% of your bet!!`;
             bet *= 0.75;
-        } else if (pCardsTotal === 21 && dCardsTotal === 21){
-            msgEl.innerHTML = `Push. You didn't win...but you didn't lose`;
-        } 
-        getWinner();
-    } 
-    else {
-        if (pChips < bet) {
-            msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit or Stand`;
-            ddBtn.style.visibility = 'hidden';
-        } else {
-            msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit, Stand or Double-Down`;   
-            ddBtn.style.visibility = 'visible';
-        };
+            getWinner();
+        }
+    } else {
+            if (pChips < bet) {
+                msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit or Stand`;
+                ddBtn.style.visibility = 'hidden';
+            } else {
+                msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit, Stand or Double-Down`;
+                ddBtn.style.visibility = 'visible';
+            };
         hitBtn.style.visibility = 'visible';
         standBtn.style.visibility = 'visible';
     };
 };
 
 
-function handleDouble() { 
-    pNewCard();
-    if(pCardsTotal > 21 && pCards.some(card => card.face.includes('A'))) 
-        {pCardsTotal -= 10;};
+function handleDouble() {
     pChips -= bet;
-    chipCountEl.innerHTML = `Your Chips: $${pChips}`;
     bet *= 2;
-    if (pCardsTotal > 21) {
-        setTimeout(getWinner, 4000)
-    } else {
-        msgEl.innerHTML = `Doublin' Down! Your bet is now ${bet}. 
-        You're showing ${pCardsTotal}, Good Luck!`
-        hitBtn.style.visibility = 'hidden';
-        standBtn.style.visibility = 'hidden';
-        ddBtn.style.visibility = 'hidden';
-        setTimeout(dealersTurn, 5000);
+    pNewCard();
+    aceToOne();
+    if (pCardsTotal <=21) {
+        dealersTurn();
+    } else { 
+        getWinner();
     };
     return bet
 };
 
 
+
 function handleHit() {
     ddBtn.style.visibility = 'hidden';
     pNewCard();
-    if(pCardsTotal > 21){
-        if(pCards.some(card => card.face.includes('A'))) {
-            pCardsTotal -= 10;
-            return pCardsTotal
-        }
-        msgEl.innerHTML = `Bust!`
-        getWinner();
-    } else if (pCardsTotal === 21) {
+    aceToOne();
+    if (pCardsTotal === 21) {
         hitBtn.style.visibility = 'hidden';
         msgEl.innerHTML = `Noice, you have ${pCardsTotal}! Lets Stand and see what the dealers got.`;
-    } else {
+    } else if (pCardsTotal < 21) {
         msgEl.innerHTML = `You have ${pCardsTotal} would you like to Hit or Stand`;
-    }
+    } else {
+        getWinner();
+    };
 };
 
 function handleStand() {
@@ -172,32 +163,30 @@ function handleStand() {
 };
 
 
-function dealersTurn () {
+function dealersTurn() {
     dNewCard();
     while (dCardsTotal < 18) {
         dNewCard();
-        if (dCardsTotal > 21 && dCards.some(card => card.face.includes('A'))) {
-            dCardsTotal -= 10;
-        };
+        aceToOne();
     };
     getWinner();
-    return dCardsTotal; 
+    return dCardsTotal;
 };
 
 function getWinner() {
     if (pCardsTotal > 21) {
-        msgEl.innerHTML = `Bust, you lost $${bet}.`;
+        msgEl.innerHTML = `You've bust with ${pCardsTotal}, you lost $${bet}.`;
     } else if (dCardsTotal > 21) {
         pChips += bet * 2;
-        msgEl.innerHTML = `The dealer bust, you won $${bet * 2}!`
+        msgEl.innerHTML = `The dealer bust with ${dCardsTotal}, you won $${bet * 2}!`
     } else if (pCardsTotal > dCardsTotal) {
         pChips += bet * 2;
         msgEl.innerHTML = `Bam! Your ${pCardsTotal} beats the dealr's ${dCardsTotal}. You've won $${bet * 2}!`;
     } else if (pCardsTotal === dCardsTotal) {
         pChips += bet;
-        msgEl.innerHTML = `Welp, its a tie.`;
+        msgEl.innerHTML = `Welp, its a tie. You win nothing but lose nothing.`;
     } else {
-        msgEl.innerHTML = `Bummer, the dealers ${dCardsTotal} beat your ${pCardsTotal}.`;
+        msgEl.innerHTML = `Bummer, the dealers ${dCardsTotal} beat your ${pCardsTotal}. You lose ${bet}`;
     };
     chipCountEl.innerHTML = `Your chips: $${pChips}`
     if (pChips === 0) {
@@ -210,12 +199,7 @@ function getWinner() {
     } else {
         dealAgainBtn.style.visibility = 'visible';
         walkAwayBtn.style.visibility = 'visible';
-    } 
-};
-
-function walkAway () {
-    renderNewHand();
-    msgEl.innerHTML = `Thanks for playing! Dont spend your $${pChips} all in one place.`
+    }
 };
 
 
@@ -235,5 +219,11 @@ function renderNewHand() {
     walkAwayBtn.style.visibility = 'hidden';
     replayBtn.style.visibility = 'hidden';
 };
+
+function walkAway() {
+    renderNewHand();
+    msgEl.innerHTML = `Thanks for playing! Dont spend your $${pChips} all in one place.`
+};
+
 
 init();
