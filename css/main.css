@@ -23,23 +23,22 @@ h3 {
 
 container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
 }
 
 .column1 {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    margin: 7vmin;
+    / */
 
 }
 
 .column2 {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin: 7vmin; 
+    display: grid;
+    grid-auto-rows: 1fr 1fr;
+    /* margin: 7vmin; 
+    width: 40vmin; */
 }
 
 .column3 {
@@ -47,7 +46,7 @@ container {
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
-    margin: 7vmin; 
+    /  */
 }
 
 button { 
@@ -68,8 +67,8 @@ button {
       background-color: whitesmoke;
       border-radius: 50%;
       border: dashed 2vmin darkred;
-      width: 20vmin;
-      height: 20vmin;
+      width: 15vmin;
+      height: 15vmin;
       align-items: center;
       justify-content: center;
       text-align: center;
@@ -78,97 +77,186 @@ button {
   
 
 #pcs { 
-    width: 250px;
+    position: relative;
+    z-index: 0;
 }
 
 .pcs1 { 
     position: absolute;
+    left: 25vmin;
+    z-index: 1;
 }
 
 .pcs2 { 
-    position: relative;
-    left: 9px; 
-    top: 2px;
+    position: absolute;
+    left: 26.5vmin; 
+    top: .5vmin;
+    z-index: 2;
     transform: rotate(5deg);
 }
-
+ 
 .pcs3 { 
-    position: relative; 
-    left: -56px; 
-    top: 5px; 
+    position: absolute; 
+    left: 28vmin; 
+    top: .75vmin; 
+    z-index: 3;
     transform: rotate(10deg); 
 }
 
 .pcs4 { 
-    position: relative;
-    left: -121px; 
-    top: 8px;
+    position: absolute;
+    left: 29.5vmin; 
+    top: 1.1vmin;
+    z-index: 4;
     transform: rotate(15deg);
 }
 
 .pcs5 { 
-    position: relative;
-    left: -187px; 
-    top: 11px;
+    position: absolute;
+    left: 31vmin; 
+    top: 1.4vmin;
+    z-index: 5;
     transform: rotate(20deg);
 }
 
 .pcs6 { 
-    position: relative;
-    left: -252px;
-    top: 14px;
+    position: absolute;
+    left: 32.5vmin;
+    top: 2vmin;
+    z-index: 6;
     transform: rotate(25deg); 
 }
 
-/* #dcs { 
-    display: flex;
-    align-content: center;
+.pcs7 { 
+    position: absolute;
+    left: 34vmin;
+    top: 2.7vmin;
+    z-index: 7;
+    transform: rotate(30deg); 
+}  
+
+.pcs8 { 
+    position: absolute;
+    left: 35.5vmin;
+    top: 3.7vmin;
+    z-index: 8;
+    transform: rotate(35deg); 
+}  
+
+.pcs9 { 
+    position: absolute;
+    left: 37vmin;
+    top: 4.7vmin;
+    z-index: 9;
+    transform: rotate(40deg); 
+}  
+
+.pcs10 { 
+    position: absolute;
+    left: 38.5vmin;
+    top: 5.8vmin;
+    z-index: 10;
+    transform: rotate(45deg); 
+}  
+
+.pcs11 { 
+    position: absolute;
+    left: 40vmin;
+    top: 7.2vmin;
+    z-index: 11;
+    transform: rotate(50deg); 
+}  
+
+#dcs { 
+    position: relative;
+    z-index: 0;
 }
 
 .dcs1 { 
     position: absolute;
-    margin: 1px;
+    left: 25vmin;
+    z-index: 1;
 }
 
 .dcs2 { 
-    position: relative;
-    left: 9px; 
-    top: 2px;
+    position: absolute;
+    left: 26.5vmin; 
+    top: .5vmin;
+    z-index: 2;
     transform: rotate(5deg);
 }
+ 
 .dcs3 { 
-    position: relative;
-    left: -56px; 
-    top: 5px;
-    transform: rotate(10deg);
+    position: absolute; 
+    left: 28vmin; 
+    top: .75vmin; 
+    z-index: 3;
+    transform: rotate(10deg); 
 }
 
 .dcs4 { 
-    position: relative;
-    left: -121px; 
-    top: 8px;
+    position: absolute;
+    left: 29.5vmin; 
+    top: 1.1vmin;
+    z-index: 4;
     transform: rotate(15deg);
 }
 
 .dcs5 { 
-    position: relative;
-    left: -187px; 
-    top: 11px;
+    position: absolute;
+    left: 31vmin; 
+    top: 1.4vmin;
+    z-index: 5;
     transform: rotate(20deg);
 }
 
 .dcs6 { 
-    position: relative;
-    left: -252px;
-    top: 14px;
+    position: absolute;
+    left: 32.5vmin;
+    top: 2vmin;
+    z-index: 6;
     transform: rotate(25deg); 
-} */
-
-
-#deal-again { 
-    position: relative;
-    top: 35px;
 }
+
+.dcs7 { 
+    position: absolute;
+    left: 34vmin;
+    top: 2.7vmin;
+    z-index: 7;
+    transform: rotate(30deg); 
+}  
+
+.dcs8 { 
+    position: absolute;
+    left: 35.5vmin;
+    top: 3.7vmin;
+    z-index: 8;
+    transform: rotate(35deg); 
+}  
+
+.dcs9 { 
+    position: absolute;
+    left: 37vmin;
+    top: 4.7vmin;
+    z-index: 9;
+    transform: rotate(40deg); 
+}  
+
+.dcs10 { 
+    position: absolute;
+    left: 38.5vmin;
+    top: 5.8vmin;
+    z-index: 10;
+    transform: rotate(45deg); 
+}  
+
+.dcs11 { 
+    position: absolute;
+    left: 40vmin;
+    top: 7.2vmin;
+    z-index: 11;
+    transform: rotate(50deg); 
+}  
 
 
 

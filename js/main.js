@@ -178,7 +178,7 @@ function getWinner() {
         pChips += bet * 2;
         msgEl.innerHTML = `Bam! Your ${pCardsTotal} beats the dealr's ${dCardsTotal}. You've won $${bet * 2}!`;
     } else if (pCardsTotal === dCardsTotal) {
-        pChips = pChips + bet;
+        pChips += bet * 1;
         msgEl.innerHTML = `Welp, its a tie. You win nothing but lose nothing.`;
     } else {
         msgEl.innerHTML = `Bummer, the dealers ${dCardsTotal} beat your ${pCardsTotal}. You lose ${bet}`;
@@ -225,7 +225,7 @@ function renderNewHand() {
 
 function walkAway() {
     renderNewHand();
-    msgEl.innerHTML = `Thanks for playing! Dont spend your $${pChips} all in one place.`
+    msgEl.innerHTML = `Thanks for playing!`
 };
 
 
