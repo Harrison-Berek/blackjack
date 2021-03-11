@@ -32,7 +32,7 @@ Icebox Items:
 - Beautify, AKA keep updateing CSS to make it more astetically pleasing 
 
 
-Pseudocode:
+<!-- Pseudocode:
  1. Define constants 
      1.1. Create card values
      1.2. Card suits
@@ -102,7 +102,7 @@ Pseudocode:
  6. Handle Replay 
      6.1. reset chips
      6.2. reset board
-     6.3. reset shuffle deck
+     6.3. reset shuffle deck -->
         
 
 
