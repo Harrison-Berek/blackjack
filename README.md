@@ -8,7 +8,11 @@ NOTE: "split" is not an option yet but will be coming soon
 
 Screenshots/WireFrame:
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/0RBLlKy"  ><a href="//imgur.com/a/0RBLlKy">Blackjack</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+<img src="https://i.imgur.com/5649gTZ.png">
+<img src="https://i.imgur.com/oKuMZq1.png">
+<img src="https://i.imgur.com/PLJtuAq.png">
+<img src="https://i.imgur.com/uavNVl8.jpg">
+
 
 Technologies Used:
 
