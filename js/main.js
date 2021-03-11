@@ -12,6 +12,7 @@ const msgEl = document.getElementById('msg');
 const ddBtn = document.getElementById('double-down')
 const hitBtn = document.getElementById('hit')
 const standBtn = document.getElementById('stand')
+const betEl = document.getElementById('bet');
 const betBtn = document.getElementById('betBtn');
 const dealAgainBtn = document.getElementById('deal-again');
 const walkAwayBtn = document.getElementById('walk-away');
@@ -92,30 +93,18 @@ function dNewCard() {
     }
 };
 
-// function pAceToOne() {
-    
-//         return pCardsTotal;
-//     }
-// };
-
-// function dAceToOne() {
-//     if (dCardsTotal > 21 && dCards.some(card => card.value === 11)) {
-//         let a11 = dCards.find(card => card.value === 11);
-//         a11.value = 1;
-//         return dCardsTotal;
-//     }
-// };
-
 function placeBet() {
-    bet = prompt(`Your chip total is ${pChips}. Please place your bet:`)
-    while (bet > pChips) {
-        bet = prompt(`Sorry, you only have ${pChips} to bet. Please place your bet:`)
-    }
-    pChips -= bet;
-    chipCountEl.innerHTML = `Your Chips: $${pChips}`;
-    betBtn.style.visibility = 'hidden';
-    initDeal();
-    return bet;
+    if (parseInt(betEl.value) > pChips) {
+        msgEl.innerHTML = `Sorry, you only have ${pChips} to bet. Please place proper bet.`;
+    } else {
+        bet = betEl.value;
+        pChips -= bet;
+        chipCountEl.innerHTML = `Your Chips: $${pChips}`;
+        betBtn.style.visibility = 'hidden';
+        betEl.style.visibility = 'hidden';
+        initDeal();
+        return bet;
+    };
 };
 
 function initDeal() {
@@ -232,6 +221,7 @@ function renderNewHand() {
     msgEl.innerHTML = `Please place your bet to get started.`
     pcsEls.innerHTML = '';
     dcsEls.innerHTML = '';
+    betEl.style.visibility = 'visible';
     hitBtn.style.visibility = 'hidden';
     standBtn.style.visibility = 'hidden';
     ddBtn.style.visibility = 'hidden';
