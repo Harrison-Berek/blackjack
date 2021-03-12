@@ -96,7 +96,7 @@ function dNewCard() {
 function placeBet() {
     if (parseInt(betEl.value) > pChips) {
         msgEl.innerHTML = `Sorry, you only have ${pChips} to bet. Please place proper bet.`;
-    } else if (parseInt(betEl.value) < 1) {
+    } else if (parseInt(betEl.value) < 1 || betEl.innerHTML === '') {
         msgEl.innerHTML = `Please place proper bet.`;
     } else {
         bet = betEl.value;
@@ -138,7 +138,6 @@ function handleDouble() {
     pChips -= bet;
     bet *= 2;
     pNewCard();
-    // aceToOne();
     if (pCardsTotal <=21) {
         dealersTurn();
     } else { 
@@ -152,7 +151,6 @@ function handleDouble() {
 function handleHit() {
     ddBtn.style.visibility = 'hidden';
     pNewCard();
-    // aceToOne();
     if (pCardsTotal === 21) {
         hitBtn.style.visibility = 'hidden';
         msgEl.innerHTML = `Noice, you have ${pCardsTotal}! Lets Stand and see what the dealers got.`;
@@ -168,7 +166,6 @@ function handleHit() {
 function dealersTurn() {
     while (dCardsTotal < 18) {
         dNewCard();
-        // aceToOne();
     };
     getWinner();
     return dCardsTotal;
