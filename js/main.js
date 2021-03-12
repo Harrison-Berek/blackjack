@@ -96,7 +96,7 @@ function dNewCard() {
 function placeBet() {
     if (parseInt(betEl.value) > pChips) {
         msgEl.innerHTML = `Sorry, you only have ${pChips} to bet. Please place proper bet.`;
-    } else if (parseInt(betEl.value) < 1 || betEl.innerHTML === '') {
+    } else if (parseInt(betEl.value) < 1) {
         msgEl.innerHTML = `Please place proper bet.`;
     } else {
         bet = betEl.value;
@@ -220,6 +220,7 @@ function renderNewHand() {
     msgEl.innerHTML = `Please place your bet to get started.`
     pcsEls.innerHTML = '';
     dcsEls.innerHTML = '';
+    betEl.value = 100;
     betEl.style.visibility = 'visible';
     hitBtn.style.visibility = 'hidden';
     standBtn.style.visibility = 'hidden';
