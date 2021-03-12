@@ -2,7 +2,44 @@ BLACKJACK
 
 Background/Rules:
 
-If you are new to Blackjack this is a great resorce for rules and basic stratigey: [Rules and Intro to Blackjack](https://www.blackjackapprenticeship.com/how-to-play-blackjack/)
+The basics: 
+    How to win
+    - Have a higher card total than the dealer without going over 21. 
+    - If the dealer bust and you dont
+    - If you get 21 (blackjack) on the first two cards and the dealer does not.
+    
+    How to lose: 
+    - If your card total goes over 21
+    - If you stand and the dealer gets a higher card total without going over 21. 
+
+    How to bet: 
+    - You bet before any cards are delt
+    - You can double that bet after the initial deal. This is called doubling down. You double your bet but you must take one, and only one more card, then stand and hope to beat the dealers hand. (You also obviouly must have enough chips to double your bet)
+
+    The Deal: 
+    - Players are delt clockwise 2 cards face up and the dealer is delt one card face up on the initial deal. 
+    - The dealer will then go around the table clockwise to see if players would like to:
+        - Hit: add a card to their total (this can be repeated until the player gose over 21(bust), or tells the dealer they will stand with the cards they have)
+        - Stand: stay with the cards they have
+        - Double Down: (if they have the chips to do so)
+    - Finaly the dealer will deal themselves cards
+        -If the dealers total is less than 18, they must hit.
+        - If their total is 18 or over and they havent bust, they must stand. 
+
+    Card Values: 
+    - All numeric cards are the value that they show on the card
+    - All face cards are worth 10 
+    - Aces are worth 11. However, if you have an ace and go over 21, the value of that ace becomes 1.
+    
+    Payouts:
+    - If you win, you win twice what you bet
+        Special cases:
+        - If you get blackjack on the initial deal you win 150% of what you bet.
+        -If you doubled-down you win double your original bet
+    - If you lose, well you lose what you bet. 
+
+Sounds simple enough, but if you need more guidence and/or looking for strategy below is a very useful link. 
+[Rules and Intro to Blackjack](https://www.blackjackapprenticeship.com/how-to-play-blackjack/)
 
 NOTE: "split" is not an option yet but will be coming soon
 
