@@ -3,6 +3,7 @@ BLACKJACK
 Background/Rules:
 
 The basics: 
+    
     How to win
     - Have a higher card total than the dealer without going over 21. 
     - If the dealer bust and you dont
