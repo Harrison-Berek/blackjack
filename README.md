@@ -67,7 +67,7 @@ Icebox Items:
 
 - Add "SPLIT" option when dealt a pair on the opeing deal
 - Animate cards being dealt
-- Beautify, AKA keep updateing CSS to make it more astetically pleasing 
+- Beautify, AKA keep updateing CSS to make it more aesthetically pleasing 
 
 
 <!-- Pseudocode:
