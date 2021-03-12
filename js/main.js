@@ -96,6 +96,8 @@ function dNewCard() {
 function placeBet() {
     if (parseInt(betEl.value) > pChips) {
         msgEl.innerHTML = `Sorry, you only have ${pChips} to bet. Please place proper bet.`;
+    } else if (parseInt(betEl.value) < 1) {
+        msgEl.innerHTML = `Please place proper bet.`;
     } else {
         bet = betEl.value;
         pChips -= bet;

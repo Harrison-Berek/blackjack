@@ -21,6 +21,10 @@ h3 {
     color: goldenrod;
 }
 
+a {
+    color: white;
+}
+
 container {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
@@ -41,7 +45,7 @@ container {
 .column3 {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -50,13 +54,18 @@ button {
     background-color: goldenrod;
     color: white;
     padding: 1vmin;
-    width: 25vmin;
+    width: 15vmin;
     transition-duration: 0.2s;
     cursor: pointer;
   }
   
   button:hover {
       background-color: darkred;
+  }
+
+  input {
+      text-align: center;
+      width: 15vmin;
   }
 
   #chip-count { 
