@@ -95,8 +95,7 @@ function dNewCard() {
 
 function placeBet() {
     analytics.track('Bet Placed', {
-        title: 'bet',
-        value: parseInt(betEl.value)
+        title: 'bet'
       });
       
     if (parseInt(betEl.value) > pChips) {
