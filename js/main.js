@@ -94,6 +94,11 @@ function dNewCard() {
 };
 
 function placeBet() {
+    analytics.track('Bet Placed', {
+        title: 'bet',
+        value: parseInt(betEl.value)
+      });
+      
     if (parseInt(betEl.value) > pChips) {
         msgEl.innerHTML = `Sorry, you only have ${pChips} to bet. Please place proper bet.`;
     } else if (parseInt(betEl.value) < 1) {
